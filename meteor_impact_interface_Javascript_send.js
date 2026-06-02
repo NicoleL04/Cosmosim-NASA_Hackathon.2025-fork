@@ -441,4 +441,10 @@ if (dist <= radiusKm) {
 }
 
 simulateBtn.addEventListener('click', simulate);
-saveBtn.addEventListener('click', save);
+
+// Save button is disabled for now because no save function exists yet.
+if (saveBtn) {
+  saveBtn.addEventListener('click', () => {
+    alert('Save is not available in this prototype yet. You can take a screenshot or copy the results.');
+  });
+}

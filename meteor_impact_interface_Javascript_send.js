@@ -343,27 +343,32 @@ function processDataWithinRadius(impactLat, impactLon, radiusKm) {
   });
 
   // Process tsunamis
-  const tsunamisInRange = [];
-  if (tsunamiRows.length > 1) {
-    for (let i = 1; i < tsunamiRows.length; i++) {
-      const row = tsunamiRows[i];
-      const lat = parseFloat(row[5]);
-      const lon = parseFloat(row[6]);
-      if (isNaN(lat) || isNaN(lon)) continue;
-      const dist = havKm(impactLat, impactLon, lat, lon);
-      if (dist <= radiusKm) {
-        tsunamisInRange.push({
-          dist,
-          data: row,
-          lat,
-          lon,
-          maxHeight: parseFloat(row[7]),
-          date: row[1],
-          location: row[4]
-        });
-      }
-    }
-  }
+  const row = tsunamiRows[i];
+
+// Correct columns for tsunamis_cleaned.csv:
+// location_name = row[13]
+// latitude = row[14]
+// longitude = row[15]
+// maximum_water_height_m = row[16]
+const lat = parseFloat(row[14]);
+const lon = parseFloat(row[15]);
+
+if (isNaN(lat) || isNaN(lon)) continue;
+
+const dist = havKm(impactLat, impactLon, lat, lon);
+
+if (dist <= radiusKm) {
+  tsunamisInRange.push({
+    dist,
+    data: row,
+    lat,
+    lon,
+    maxHeight: parseFloat(row[16]),
+    date: `${row[1]}-${row[2]}-${row[3]}`,
+    location: row[13]
+  });
+}
+#testing
 
   // Display tsunamis on map and in list
   const tsuSummary = document.getElementById('tsuSummary');

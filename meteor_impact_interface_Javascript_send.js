@@ -201,7 +201,7 @@ function calculateImpact(meteor, impact) {
 function generateNarrative(meteor, impact, results) {
   const date = meteor.date || "unknown date";
   const name = meteor.name || "unnamed object";
-  const location = impact.lat >= 0 ? `${impact.lat.toFixed(1)}°N` : `${(-impact.lat).toFixed(1)}°S`;
+  let location = impact.lat >= 0 ? `${impact.lat.toFixed(1)}°N` : `${(-impact.lat).toFixed(1)}°S`;
   location += impact.lon >= 0 ? `, ${impact.lon.toFixed(1)}°E` : `, ${(-impact.lon).toFixed(1)}°W`;
   
   let story = `On ${date}, the ${name} impacts Earth at ${location}. `;
